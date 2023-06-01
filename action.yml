@@ -1,0 +1,33 @@
+# action.yml
+name: "thereisnotime/action-nmap"
+description: "Run nmap in your GitHub Actions workflow"
+
+inputs:
+  target:
+    description: "Target URL (e.g. blackfox-security.com/vuln.php)"
+    required: true
+    default: ""
+  additional_args:
+    description: "Additional arguments to pass to nmap. Default is -oA report to generate reports."
+    required: false
+    default: "-oA report"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  entrypoint: /bin/sh
+  args:
+    - -c
+    - |
+      args="${{ inputs.target }}"
+      additional_args="${{ inputs.additional_args }}"
+      set -- $additional_args
+      for arg do
+        args="$arg $args"
+      done
+      echo $args
+      exec /usr/bin/nmap $args
+
+branding:
+  icon: "map"
+  color: "red"
