@@ -23,7 +23,7 @@ runs:
       additional_args="${{ inputs.additional_args }}"
       set -- $additional_args
       for arg do
-        args="$arg $args"
+        args="$args $arg"
       done
       echo $args
       exec /usr/bin/nmap $args
