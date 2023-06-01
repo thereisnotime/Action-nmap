@@ -29,7 +29,7 @@ jobs:
         uses: thereisnotime/action-nmap@master
         with:
           target: "blackfox-security.com"
-          additional_args: "-oA report"
+          additional_args: "-oA ./reports/net/report-nmap -p- -sS -sV --script vulners --script-args mincvss=5.0 -A -O -T4 -n -Pn -v"
 ```
 
 ### Use latest version in a job
@@ -43,7 +43,7 @@ scan_nmap:
       uses: thereisnotime/action-nmap@master
       with:
         target: "blackfox-security.com"
-        additional_args: "-oA report"
+        additional_args: "-oA ./reports/net/report-nmap -p- -sS -sV --script vulners --script-args mincvss=5.0 -A -O -T4 -n -Pn -v"
 ```
 
 ### Use latest version in a job and upload the results back to the repository
@@ -65,7 +65,7 @@ scan_nmap:
       uses: thereisnotime/action-nmap@master
       with:
         target: ${{ env.TARGET }}
-        additional_args: "-oA report"
+        additional_args: "-oA ./reports/net/report-nmap -p- -sS -sV --script vulners --script-args mincvss=5.0 -A -O -T4 -n -Pn -v"
     - name: Commit and push changes
       uses: EndBug/add-and-commit@v9
       with:
